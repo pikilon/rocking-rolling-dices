@@ -1,0 +1,4 @@
+:root {
+  --base-font-size: 4mm;
+  --spacing: calc(var(--base-font-size) * 0.15);
+}

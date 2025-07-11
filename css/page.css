@@ -1,0 +1,14 @@
+body {
+  font-size: var(--base-font-size);
+  font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+}
+
+dialog {
+  border: 0;
+  padding: calc(var(--spacing) * 10);
+  border-radius: 20px;
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}

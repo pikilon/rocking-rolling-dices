@@ -1,0 +1,17 @@
+[data-flex] {
+  display: flex;
+  flex-direction: attr(data-flex type(<custom-ident>), row);
+
+  &.items-center {
+    align-items: center;
+  }
+
+  &.between {
+    justify-content: space-between;
+  }
+}
+
+[data-gap] {
+  --gap-multiplier: attr(data-gap type(<number>), 1);
+  gap: calc(var(--spacing) * var(--gap-multiplier));
+}

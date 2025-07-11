@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Create Multi-Sided Dice</title>
+    <meta property="og:title" content="Create Multi-Sided Dice" />
+    <meta
+      property="og:description"
+      content="Easily create and customize your own multi-sided dice with this simple form interface." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <game-title></game-title>
+    <dice-dialog></dice-dialog>
+    <script type="module">
+      import "./js/components/dice-dialog.js";
+      import "./js/components/game-title.js";
+      import { gameState } from "./js/global-state.js";
+
+      console.log("gameState", gameState.getState());
+      const diceDialog = document.querySelector("dice-dialog");
+      document.getElementById("remove-me").addEventListener("click", () =>
+        diceDialog.addDice({
+          callback: (newDice) => {
+            console.log("New Dice Created:", newDice);
+          },
+        })
+      );
+    </script>
+
+    <button id="remove-me">Create New Dice</button>
+  </body>
+</html>

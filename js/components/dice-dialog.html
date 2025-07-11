@@ -1,0 +1,25 @@
+<dialog id="dice-dialog" closedby="any">
+  <link rel="stylesheet" href="./css/dice.css" />
+  <template id="dice-side-template">
+    <label class="dice">
+      <span>Side</span>
+      <input type="text" name="side[]" minlength="1" maxlength="3" required />
+      <button class="remove" type="button">Remove</button>
+      <button class="add" type="button">Add</button>
+    </label>
+  </template>
+  <div data-flex class="between items-center">
+    <h1>Create a Multi-Sided Dice</h1>
+    <form method="dialog">
+      <button type="submit">❌</button>
+    </form>
+  </div>
+  <form data-flex="column" data-gap="5">
+    <label>
+      <span>Dice title</span>
+      <input type="text" name="title" required minlength="2" maxlength="30" />
+    </label>
+    <div id="sides" data-flex="column" data-gap="5"></div>
+    <button type="submit">Create Dice</button>
+  </form>
+</dialog>

@@ -1,0 +1,17 @@
+dice-side-input {
+  .add,
+  .remove {
+    display: none;
+  }
+  &:last-of-type {
+    .add {
+      display: inline-block;
+    }
+  }
+
+  &:nth-of-type(n + 3) {
+    .remove {
+      display: inline-block;
+    }
+  }
+}
