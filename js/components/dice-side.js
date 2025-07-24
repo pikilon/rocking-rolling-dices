@@ -1,3 +1,10 @@
+const template = /*html*/ `<label class="dice">
+      <span>Side</span>
+      <input type="text" name="side[]" minlength="1" maxlength="3" required />
+      <button class="remove" type="button">Remove</button>
+      <button class="add" type="button">Add</button>
+    </label>`;
+
 class DiceSideInput extends HTMLElement {
   constructor() {
     super();
@@ -6,11 +13,9 @@ class DiceSideInput extends HTMLElement {
     this.render();
   }
   render() {
-    const template = document.getElementById("dice-side-template");
-    const clone = template.content.cloneNode(true);
+    this.innerHTML = template;
     const value = this.getAttribute("value") || "";
-    clone.querySelector("input").value = value;
-    this.appendChild(clone);
+    this.querySelector("input").value = value;
     this.querySelector(".remove").addEventListener("click", () => {
       this.remove();
     });

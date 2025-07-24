@@ -11,7 +11,6 @@ class GameTitle extends HTMLElement {
 
     // Subscribe to global state changes
     this.unsubscribe = gameState.subscribe((newState) => {
-      console.log("newState", newState);
       if (newState.title === this.title) return;
       this.title = newState.title;
       this.render();

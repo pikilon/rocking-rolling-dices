@@ -19,6 +19,16 @@ class ReactiveState {
     this.listeners.forEach((listener) => listener(this.state, prevState));
   }
 
+  addDice(dice) {
+    this.setState((prevState) => ({
+      ...prevState,
+      dices: {
+        ...prevState.dices,
+        [dice.title]: dice,
+      },
+    }));
+  }
+
   subscribe(listener) {
     this.listeners.push(listener);
     return () => {

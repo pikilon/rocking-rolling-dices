@@ -12,23 +12,13 @@
   </head>
   <body>
     <game-title></game-title>
-    <dice-dialog></dice-dialog>
+    <dice-info title="d6" quantity="2" sides="1,2,3,4,5,6"></dice-info>
+
     <script type="module">
-      import "./js/components/dice-dialog.js";
+      import "./js/components/dice-info.js";
       import "./js/components/game-title.js";
       import { gameState } from "./js/global-state.js";
-
-      console.log("gameState", gameState.getState());
-      const diceDialog = document.querySelector("dice-dialog");
-      document.getElementById("remove-me").addEventListener("click", () =>
-        diceDialog.addDice({
-          callback: (newDice) => {
-            console.log("New Dice Created:", newDice);
-          },
-        })
-      );
+      const diceElement = document.querySelector("dice-info");
     </script>
-
-    <button id="remove-me">Create New Dice</button>
   </body>
 </html>
