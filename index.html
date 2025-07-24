@@ -9,16 +9,23 @@
       content="Easily create and customize your own multi-sided dice with this simple form interface." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/manage-dices.css" />
   </head>
   <body>
-    <game-title></game-title>
-    <dice-info title="d6" quantity="2" sides="1,2,3,4,5,6"></dice-info>
+
+    <div style="display: flex; min-height: 100vh;">
+      <manage-dices></manage-dices>
+      <main style="flex: 1; padding: 2rem;">
+        <game-title></game-title>
+        <!-- Main game UI goes here -->
+      </main>
+    </div>
 
     <script type="module">
       import "./js/components/dice-info.js";
       import "./js/components/game-title.js";
+      import "./js/components/manage-dices.js";
       import { gameState } from "./js/global-state.js";
-      const diceElement = document.querySelector("dice-info");
     </script>
   </body>
 </html>

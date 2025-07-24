@@ -1,5 +1,5 @@
 export function getDefaultDice() {
-  return { title: "New Dice", sides: ["1", "2", "3", "4", "5", "6"] };
+  return { title: "New Dice", sides: ["1", "2", "3", "4", "5", "6"], quantity: 1 };
 }
 
 export function getEmptyGame() {
@@ -12,12 +12,9 @@ export function getGameUrl() {
   return gameParam ? JSON.parse(decodeURIComponent(gameParam)) : getEmptyGame();
 }
 
-export function setGameUrl(
-  { title = "", dices: newDices = {} } = getEmptyGame()
-) {
-  const prevGame = getGameUrl();
-  const dices = { ...prevGame.dices, ...newDices };
-  const updatedGame = { ...prevGame, title, dices };
+console.log("getGameUrl", getGameUrl);
+
+export function setGameUrl(updatedGame = getEmptyGame()) {
   const searchParams = new URLSearchParams();
   searchParams.set("game", encodeURIComponent(JSON.stringify(updatedGame)));
   window.history.replaceState({}, "", `?${searchParams.toString()}`);

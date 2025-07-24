@@ -1,0 +1,9 @@
+/* Sidebar styles for manage-dices component */
+manage-dices {
+  --sidebar-bg: #f8f8f8;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.03);
+  min-width: 220px;
+  max-width: 300px;
+  height: 100vh;
+  overflow-y: auto;
+}

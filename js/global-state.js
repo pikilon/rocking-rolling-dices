@@ -16,6 +16,7 @@ class ReactiveState {
     const prevState = this.state;
     this.state = typeof updater === "function" ? updater(this.state) : updater;
     setGameUrl(this.state);
+    console.log('this.state', this.state);
     this.listeners.forEach((listener) => listener(this.state, prevState));
   }
 
@@ -27,6 +28,15 @@ class ReactiveState {
         [dice.title]: dice,
       },
     }));
+  }
+  removeDice(diceTitle = "") {
+    this.setState((prevState) => {
+      const dices = { ...prevState.dices };
+      console.log('dices', dices);
+      delete dices[diceTitle];
+      console.log('dices', dices);
+      return { ...prevState, dices };
+    });
   }
 
   subscribe(listener) {

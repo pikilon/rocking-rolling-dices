@@ -26,8 +26,8 @@
 
 ## Integration Points
 
-- **url game sets**: the main entry point should have the game sets info in search params: title, dices: with title, sides, and AMOUNT of them in the game.
-- **Local Storage**: Persistent data (games, dice) is managed in `js/db.js` all game sets should be stored in the local db and the dices too using the title. If a game set is going to be overwritten, it should ask the user for confirmation.
+- **url game sets**: the main entry point should have the game sets info in search params: title, dices: with title, sides, and AMOUNT of them in the game. This in the file `js\utilities.js` to centralize the logic.
+- **Local Storage**: Persistent data (games, dice) is managed in `js/db.js` all game sets should be stored in the local db.
 - **Component Communication**: Use custom events or shared state (`js/global-state.js`) for cross-component updates.
 
 ## Key Files & Directories
@@ -36,6 +36,7 @@
 - `js/global-state.js`: Shared state logic.
 - `js/db.js`: Local storage/data persistence.
 - `css/`: Modular CSS for layout and components.
+   - `css/utilities.css`: Utility classes for using in apps and new components. Check this before adding styles.
 
 ## Example Patterns
 - To add a new dice type, create a new Web Component in `js/components/` and register it with `customElements.define`.

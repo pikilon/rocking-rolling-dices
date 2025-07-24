@@ -30,6 +30,10 @@ const DICE_EDIT = diceWrapper(/*html*/ `
       <span>Dice title</span>
       <input type="text" name="title" required minlength="2" maxlength="30" />
     </label>
+    <label data-flex="column" data-gap="2">
+      <span>Quantity</span>
+      <input type="number" name="quantity" min="1" max="20" value="1" />
+    </label>
     <div id="sides" data-flex="column" data-gap="5"></div>
     <div>
       <button type="submit">Save</button>
@@ -94,9 +98,9 @@ class DiceInfo extends HTMLElement {
               .map((s) => s.trim())
           : [],
       };
-      this.isEditing =
-        !this._dice.title || !this._dice.sides || this._dice.sides.length === 0;
     }
+    // Always enter edit mode if title is empty or no sides
+    this.isEditing = !this._dice.title || !this._dice.sides || this._dice.sides.length === 0;
     this.render();
   }
 
@@ -166,15 +170,17 @@ class DiceInfo extends HTMLElement {
   setupEditMode() {
     const form = this.querySelector("form");
     const titleInput = this.querySelector("input[name='title']");
+    const quantityInput = this.querySelector("input[name='quantity']");
     const sidesContainer = this.querySelector("#sides");
     const cancelBtn = this.querySelector("#cancel-btn");
 
     // Populate form if we have dice data
     if (this._dice) {
       titleInput.value = this._dice.title || "";
+      quantityInput.value = this._dice.quantity || 1;
 
       sidesContainer.innerHTML = "";
-      const sides = this._dice.sides || ["1"];
+      const sides = this._dice.sides && this._dice.sides.length > 0 ? this._dice.sides : ["1"];
       sides.forEach((side) => {
         const sideInput = document.createElement("dice-side-input");
         sideInput.setAttribute("value", side);
@@ -182,6 +188,7 @@ class DiceInfo extends HTMLElement {
       });
     } else {
       // Default single side if no dice
+      quantityInput.value = 1;
       const sideInput = document.createElement("dice-side-input");
       sideInput.setAttribute("value", "1");
       sidesContainer.appendChild(sideInput);
@@ -213,6 +220,7 @@ class DiceInfo extends HTMLElement {
     const form = event.target;
     const formData = new FormData(form);
     const title = formData.get("title");
+    const quantity = parseInt(formData.get("quantity"), 10) || 1;
     const sides = formData
       .getAll("side[]")
       .filter((side) => side.trim() !== "");
@@ -222,12 +230,22 @@ class DiceInfo extends HTMLElement {
         ...this._dice,
         title,
         sides,
-        quantity: this._dice?.quantity || 1,
+        quantity,
       };
 
       this._dice = updatedDice;
       this.isEditing = false;
 
+      // If this was an empty dice (new), emit 'dice-edit' for sidebar to handle
+      this.dispatchEvent(
+        new CustomEvent("dice-edit", {
+          bubbles: true,
+          composed: true,
+          detail: { title, sides, quantity },
+        })
+      );
+
+      // Also emit legacy 'dicechange' for backward compatibility
       this.dispatchEvent(
         new CustomEvent("dicechange", {
           detail: { dice: updatedDice },
